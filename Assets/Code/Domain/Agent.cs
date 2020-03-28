@@ -1,50 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Domain
 {
-    public enum HealthState
-    {
-        Normal,
-        Infected,
-        InfectedConfirmed,
-        NeedsMedicalTreatment,
-        Immune,
-        Dead
-    }
-
-    public struct Health
-    {
-        public HealthState State { get; }
-        public float Duration { get; }
-        public float TimeInState { get; private set; }
-
-        public Health(HealthState state, float duration)
-        {
-            Duration = duration;
-            State = state;
-            TimeInState = 0;
-        }
-
-        public void Update(float deltaTime)
-        {
-            TimeInState += deltaTime;
-        }
-
-        public bool IsIll => State != HealthState.Normal && State != HealthState.Dead && State != HealthState.Immune;
-
-        public bool IsStateFinished => IsIll && TimeInState > Duration;
-    }
-
-    public struct Happiness
-    {
-        public float Value;
-    }
-
-    public struct Hunger
-    {
-        public float Value;
-    }
 
     public struct AgentMovement
     {
@@ -55,21 +15,28 @@ namespace Domain
         public Vector2 ImmediateTargetLocation;
     }
 
+    public struct AgentId
+    {
+        public int Id;
+    }
+
     public sealed class AgentConfiguration
     {
         public TileId HomeTile { get; }
         public TileId WorkTile { get; }
+        public bool IsWorkFromHomeViable { get; }
+
+        public bool GetIgnorePolicies(Happiness happiness)
+        {
+            return false;
+        }
 
         public AgentConfiguration(TileId home, TileId work)
         {
             HomeTile = home;
             WorkTile = work;
+            IsWorkFromHomeViable = true;
         }
-    }
-
-    public struct AgentId
-    {
-        public int Id;
     }
 
     public struct Agent
