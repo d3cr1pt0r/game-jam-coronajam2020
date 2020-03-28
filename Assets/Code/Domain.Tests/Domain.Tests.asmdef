@@ -1,0 +1,15 @@
+{
+    "name": "Domain.Tests",
+    "references": [
+        "GUID:2ecfcaf0dafcb6648a462af0f5a9d9e4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
