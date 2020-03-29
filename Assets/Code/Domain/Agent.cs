@@ -15,7 +15,7 @@ namespace Domain
         }
     }
 
-    public struct Agent
+    public sealed class Agent
     {
         public Health Health;
         public Happiness Happiness;

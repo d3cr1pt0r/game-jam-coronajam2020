@@ -20,7 +20,7 @@ namespace Domain
         {
             HomeTile = home;
             WorkTile = work;
-            this.isWorkFromHomeViable = isWorkFromHomeViable;
+            IsWorkFromHomeViable = isWorkFromHomeViable;
             this.abidesByPoliciesThreshold = abidesByPoliciesThreshold;
         }
     }
