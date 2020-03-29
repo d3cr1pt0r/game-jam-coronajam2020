@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Domain
 {
-
-
-    public struct AgentOnTileInfo
+    internal struct AgentOnTileInfo
     {
         public AgentId AgentId;
         public Vector2 Position;
     }
 
-    public sealed class Map
+    internal sealed class Map
     {
         // Read-only data data
         private readonly Tile[] tiles;
@@ -61,10 +60,10 @@ namespace Domain
                    new Vector2((float) random.NextDouble() * 2 - 1, (float) random.NextDouble() * 2 - 1);
         }
 
-        public Tile GetClosestNeighborForTarget(Tile currentTile, TileId target, bool canIgnoreTileLimits)
+        internal TileId GetClosestNeighborForTarget(TileId currentTile, TileId target, bool canIgnoreTileLimits)
         {
             // TODO: if simple implementation, can be here, otherwise delegate to algorithm
-            return tiles[0];
+            return new TileId();
         }
 
         public TileId GetClosest(TileType tileType, TileId currentTile)
