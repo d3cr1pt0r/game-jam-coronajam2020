@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class NavigationSystem
+    public class MovementSystem
     {
-        public void Update(ref AgentMovement movement, IReadOnlyList<Tile> tiles)
+        private Map map;
+        private float deltaTime;
+
+        public void Update(ref AgentMovement movement)
         {
             
         }

@@ -34,7 +34,7 @@ namespace Domain
             TimeInState += deltaTime;
         }
 
-        public bool IsIll => State != HealthState.Normal && State != HealthState.Dead && State != HealthState.Immune;
+        public bool IsIll => State == HealthState.Infected || State == HealthState.InfectedConfirmed || State == HealthState.NeedsMedicalTreatment;
 
         public bool IsStateFinished => IsIll && TimeInState > Duration;
     }
@@ -46,6 +46,14 @@ namespace Domain
 
     public struct Hunger
     {
-        public float Value;
+        public float Value { get; }
+
+        public Hunger(float value)
+        {
+            Value = value;
+        }
+
+        public static readonly Hunger Min = new Hunger(1.0f);
+        public static readonly Hunger Max = new Hunger(1.0f);
     }
 }

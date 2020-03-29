@@ -6,19 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public enum ActionType
+    public enum ActionUpdateResult
     {
-        GoTo,
-        Work,
-        Entertain,
-        CureIllness
+        StayInAction,
+        FinishedAction
     }
 
-    public struct Action
+    public abstract class Action
     {
-        public ActionType Type;
-        public TileId Target;
-        public float TimeInAction;
-        public float Duration;
+        public abstract ActionUpdateResult Update(float deltaTime, ref Agent agent);
+        
     }
 }

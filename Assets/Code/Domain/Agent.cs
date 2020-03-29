@@ -5,37 +5,13 @@ using UnityEngine;
 
 namespace Domain
 {
-
-    public struct AgentMovement
-    {
-        public TileId TargetTile;
-        public TileId CurrentTile;
-        public Vector2 CurrentLocation;
-        public TileId ImmediateTarget;
-        public Vector2 ImmediateTargetLocation;
-    }
-
     public struct AgentId
     {
-        public int Id;
-    }
+        public int Id { get; }
 
-    public sealed class AgentConfiguration
-    {
-        public TileId HomeTile { get; }
-        public TileId WorkTile { get; }
-        public bool IsWorkFromHomeViable { get; }
-
-        public bool GetIgnorePolicies(Happiness happiness)
+        public AgentId(int id)
         {
-            return false;
-        }
-
-        public AgentConfiguration(TileId home, TileId work)
-        {
-            HomeTile = home;
-            WorkTile = work;
-            IsWorkFromHomeViable = true;
+            Id = id;
         }
     }
 
@@ -45,8 +21,8 @@ namespace Domain
         public Happiness Happiness;
         public AgentMovement Movement;
         public Hunger Hunger;
-        public List<Action> ActionQueue;
-        public AgentConfiguration Configuration;
+        public Queue<Action> ActionQueue;
+        public AgentSpecification Specification;
     }
 
 }

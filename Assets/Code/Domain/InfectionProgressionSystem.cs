@@ -11,8 +11,9 @@ namespace Assets.Code.Domain
     public class InfectionProgressionSystem
     {
         private IInfectionProgression infectionProgression;
+        private float deltaTime;
 
-        public void Update(float deltaTime, ref Health health)
+        public void Update(ref Health health)
         {
             health.Update(deltaTime);
             if (!health.IsStateFinished)

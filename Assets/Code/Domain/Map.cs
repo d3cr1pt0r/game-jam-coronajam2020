@@ -1,48 +1,78 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Domain
 {
-    public struct TileId
-    {
-        public int Id;
-    }
 
-    public enum TileType
-    {
-        Household,
-        Market,
-        Workplace,
-        Hospital,
-        Entertainment
-    }
 
-    public struct Tile
+    public struct AgentOnTileInfo
     {
-        public TileType Type { get; }
-        public Vector2 Position { get; }
-        public List<AgentId> AgentsOnTile;
-        public int NumberOfAgents => AgentsOnTile.Count;
+        public AgentId AgentId;
+        public Vector2 Position;
     }
 
     public sealed class Map
     {
+        // Read-only data data
         private readonly Tile[] tiles;
-        // Maybe need some neighbour information
+        private readonly List<TileId>[] neigboringTiles;
+        // Dynamic data
+        private readonly List<AgentOnTileInfo>[] agentsOnTile;
 
-        public Tile GetTile(TileId tileId)
+        private readonly Random random = new Random();
+
+        public int TileCount => tiles.Length;
+
+        public ref readonly Tile GetTile(TileId tileId)
         {
-            return tiles[tileId.Id];
+            return ref tiles[tileId.Id];
         }
 
-        public ref Tile GetClosestNeighborForTarget(Tile currentTile, TileId target, bool canIgnoreTileLimits)
+        public IReadOnlyList<AgentOnTileInfo> GetAgentsOnTileInfo(TileId tile)
         {
-            return ref tiles[0];
+            return agentsOnTile[tile.Id];
+        }
+
+        public void SpawnAgentOnTile(TileId tile, AgentId agentId, out Vector2 position)
+        {
+            position = GetTargetPositionOnTile(tile);
+            agentsOnTile[tile.Id].Add(new AgentOnTileInfo { AgentId = agentId, Position = position });
+        }
+
+        public void MoveAgentToTile(TileId from, TileId to, AgentId agentId, out Vector2 targetPosition)
+        {
+            int removedCount = agentsOnTile[from.Id].RemoveAll(x => x.AgentId.Id == agentId.Id);
+            if (removedCount != 1)
+            {
+                throw new InvalidOperationException("Cannot move agent to a new tile, was not on the old tile");
+            }
+
+            targetPosition = GetTargetPositionOnTile(to);
+            agentsOnTile[to.Id].Add(new AgentOnTileInfo {AgentId = agentId, Position = targetPosition});
+        }
+
+        private Vector2 GetTargetPositionOnTile(TileId tileId)
+        {
+            // TODO: more sophisticated random generation, maybe need some data stored on tile
+            // TODO: also add seeded random so unit tests are stable
+            var tile = tiles[tileId.Id];
+            return tile.Position +
+                   new Vector2((float) random.NextDouble() * 2 - 1, (float) random.NextDouble() * 2 - 1);
+        }
+
+        public Tile GetClosestNeighborForTarget(Tile currentTile, TileId target, bool canIgnoreTileLimits)
+        {
+            // TODO: if simple implementation, can be here, otherwise delegate to algorithm
+            return tiles[0];
         }
 
         public TileId GetClosest(TileType tileType, TileId currentTile)
         {
+            // TODO: if simple implementation, can be here, otherwise delegate to algorithm
             return new TileId();
         }
+
+
     }
 }
