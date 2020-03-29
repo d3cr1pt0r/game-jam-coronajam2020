@@ -13,9 +13,13 @@ namespace Domain
         private readonly InfectionProgressionSystem progressionSystem;
         private readonly ActionUpdateSystem agentActionSystem;
         private readonly MovementSystem movementSystem;
+        private readonly ActionScheduleSystem actionScheduleSystem;
+
+        private readonly List<Policy> policies;
 
         private Agent[] agents;
         private Map map;
+
 
 
 
@@ -31,7 +35,9 @@ namespace Domain
             for (int i = 0; i < count; ++i)
             {
                 ref var agent = ref agents[i];
-                movementSystem.Update(ref agent.Movement);
+
+                bool canIgnoreTileLimits = !agent.Specification.AbidesByPolicies(agent.Happiness);
+                movementSystem.Update(new AgentId(i), agent.Movement, canIgnoreTileLimits);
             }
 
             int tileCount = map.TileCount;

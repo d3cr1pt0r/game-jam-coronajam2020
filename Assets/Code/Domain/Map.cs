@@ -72,6 +72,11 @@ namespace Domain
             return new TileId();
         }
 
+        internal void SetTileAgentLimit(TileType type, int limit)
+        {
+
+        }
+
 
     }
 }

@@ -4,21 +4,12 @@ namespace Domain
 {
     public sealed class AgentSpecification
     {
-        private readonly bool isWorkFromHomeViable;
+        
         private readonly Happiness abidesByPoliciesThreshold;
 
         public TileId HomeTile { get; }
         public TileId WorkTile { get; }
-
-        public bool CanWork(bool onlyWorkFromHomePossible)
-        {
-            if (onlyWorkFromHomePossible)
-            {
-                return isWorkFromHomeViable;
-            }
-
-            return true;
-        }
+        public bool IsWorkFromHomeViable { get; }
 
         public bool AbidesByPolicies(Happiness happiness)
         {
