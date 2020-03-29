@@ -18,13 +18,14 @@ namespace Domain.Actions
         public override ActionUpdateResult Update(float deltaTime, ref Agent agent)
         {
             ref var movement = ref agent.Movement;
-            if (movement.CurrentTile.Id == target.Id)
+
+            // Movement system will take over from here
+            movement.SetTarget(target);
+
+            if (movement.GetHasReachedTarget())
             {
                 return ActionUpdateResult.FinishedAction;
             }
-
-            // Movement system will take over from here (this is still weird, must use API instead of setting value)
-            movement.TargetTile = target;
             return ActionUpdateResult.StayInAction;
         }
     }

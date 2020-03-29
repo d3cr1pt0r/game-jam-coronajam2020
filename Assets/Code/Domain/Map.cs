@@ -60,7 +60,7 @@ namespace Domain
                    new Vector2((float) random.NextDouble() * 2 - 1, (float) random.NextDouble() * 2 - 1);
         }
 
-        internal TileId GetClosestNeighborForTarget(TileId currentTile, TileId target, bool canIgnoreTileLimits)
+        internal TileId GetNextTileOnPath(TileId currentTile, TileId target, bool canIgnoreTileLimits)
         {
             // TODO: if simple implementation, can be here, otherwise delegate to algorithm
             return new TileId();

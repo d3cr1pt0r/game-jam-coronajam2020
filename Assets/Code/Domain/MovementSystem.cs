@@ -25,7 +25,7 @@ namespace Domain
             if (!movement.GetHasReachedImmediateTarget())
                 return;
 
-            var immediateTarget = map.GetClosestNeighborForTarget(movement.CurrentTile, movement.TargetTile, canIgnoreTileLimits);
+            var immediateTarget = map.GetNextTileOnPath(movement.CurrentTile, movement.TargetTile, canIgnoreTileLimits);
             map.MoveAgentToTile(movement.CurrentTile, immediateTarget, agentId, out Vector2 immediateTargetPosition);
             movement.UpdateImmediateTarget(immediateTarget, immediateTargetPosition);
 

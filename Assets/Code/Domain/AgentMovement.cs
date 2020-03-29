@@ -41,6 +41,11 @@ namespace Domain
             return Vector2.SqrMagnitude(immediateTargetLocation - CurrentLocation) < ReachedThresholdSquared;
         }
 
+        internal bool GetHasReachedTarget()
+        {
+            return immediateTarget.Id == TargetTile.Id && GetHasReachedImmediateTarget();
+        }
+
         internal void UpdateImmediateTarget(TileId tileId, Vector2 location)
         {
             immediateTargetLocation = location;
