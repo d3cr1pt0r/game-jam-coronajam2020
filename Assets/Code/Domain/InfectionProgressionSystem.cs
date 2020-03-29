@@ -13,14 +13,14 @@ namespace Assets.Code.Domain
         private IInfectionProgression infectionProgression;
         private float deltaTime;
 
-        public void Update(ref Health health)
+        public Health Update(Health health)
         {
-            health.Update(deltaTime);
-            if (!health.IsStateFinished)
-                return;
+            var newHealth = health.IncrementTime(deltaTime);
+            if (!newHealth.IsStateFinished)
+                return newHealth;
 
-            var result = infectionProgression.NextState(health.State);
-            health = new Health(result.state, result.duration);
+            var result = infectionProgression.NextState(newHealth.State);
+            return new Health(result.state, result.duration);
         }
     }
 }

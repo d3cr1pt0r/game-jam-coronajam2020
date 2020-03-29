@@ -17,7 +17,7 @@ namespace Domain.Actions
 
         public override ActionUpdateResult Update(float deltaTime, ref Agent agent)
         {
-            ref var movement = ref agent.Movement;
+            var movement = agent.Movement;
 
             // Movement system will take over from here
             movement.SetTarget(target);

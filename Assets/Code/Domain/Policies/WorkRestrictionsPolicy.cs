@@ -33,7 +33,7 @@ namespace Assets.Code.Domain.Policies
                 case WorkRestriction.WorkFromHomeIfPossible:
                     return true;
                 case WorkRestriction.WorkFromHomeOnly:
-                    return agent.Specification.IsWorkFromHomeViable;
+                    return agent.IsWorkFromHomeViable;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

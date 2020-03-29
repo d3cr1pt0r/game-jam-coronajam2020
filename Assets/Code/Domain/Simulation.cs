@@ -29,14 +29,14 @@ namespace Domain
             for (int i = 0; i < count; ++i)
             {
                 ref var agent = ref agents[i];
-                progressionSystem.Update(ref agent.Health);
+                agent.Health = progressionSystem.Update(agent.Health);
             }
 
             for (int i = 0; i < count; ++i)
             {
                 ref var agent = ref agents[i];
 
-                bool canIgnoreTileLimits = !agent.Specification.AbidesByPolicies(agent.Happiness);
+                bool canIgnoreTileLimits = !agent.AbidesByPolicies(agent.Happiness);
                 movementSystem.Update(new AgentId(i), agent.Movement, canIgnoreTileLimits);
             }
 

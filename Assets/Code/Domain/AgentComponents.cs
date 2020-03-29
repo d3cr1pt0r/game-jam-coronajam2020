@@ -20,7 +20,7 @@ namespace Domain
     {
         public HealthState State { get; }
         public float Duration { get; }
-        public float TimeInState { get; private set; }
+        public float TimeInState { get; }
 
         public Health(HealthState state, float duration)
         {
@@ -29,9 +29,16 @@ namespace Domain
             TimeInState = 0;
         }
 
-        public void Update(float deltaTime)
+        private Health(HealthState state, float duration, float timeInState)
         {
-            TimeInState += deltaTime;
+            Duration = duration;
+            State = state;
+            TimeInState = timeInState;
+        }
+
+        public Health IncrementTime(float deltaTime)
+        {
+            return new Health(State, Duration, TimeInState + deltaTime);
         }
 
         public bool IsIll => State == HealthState.Infected || State == HealthState.InfectedConfirmed || State == HealthState.NeedsMedicalTreatment;
